@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prod-cons-backend-deploy
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-deploy
 spec:
   selector:
     matchLabels:
@@ -12,13 +12,13 @@ spec:
         app: server
     spec:
       containers:
-      - name: server
-        image: denimallel/prod-cons-api:17
+      - name: {{ .Release.Name }}-{{ .Chart.Name }}-server
+        image: {{ .Values.backend.deployment.image }}
         livenessProbe:
           httpGet:
-            path: /actuator/health/liveness
-            port: 8091
-          initialDelaySeconds: 10
-          periodSeconds: 5
+            path: {{ .Values.backend.liveness.path }}
+            port: {{ .Values.backend.liveness.port }}
+          initialDelaySeconds: {{ .Values.backend.liveness.initialDelay }}
+          periodSeconds: {{ .Values.backend.liveness.periodSeconds }}
         ports:
-        - containerPort: 8090
+        - containerPort: {{ .Values.backend.deployment.port }}

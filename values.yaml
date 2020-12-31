@@ -1,0 +1,9 @@
+backend:
+    deployment:
+        image: denimallel/prod-cons-api:17
+        port: 8090
+    liveness:
+        path: /actuator/health/liveness
+        port: 8091
+        initialDelay: 10
+        periodSeconds: 5
