@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prod-cons-ui-deploy
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-web
 spec:
   selector:
     matchLabels:
-      app: web
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-web
   template:
     metadata:
       labels:
-        app: web
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-web
     spec:
       containers:
-      - name: web
-        image: denimallel/prod-cons-web:15
+      - name: {{ .Release.Name }}-{{ .Chart.Name }}-web
+        image: {{ .Values.ui.deployment.image }}
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.ui.deployment.port }}

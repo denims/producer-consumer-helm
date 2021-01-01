@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-deploy
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-server
 spec:
   selector:
     matchLabels:
-      app: server
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-server
   template:
     metadata:
       labels:
-        app: server
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-server
     spec:
       containers:
       - name: {{ .Release.Name }}-{{ .Chart.Name }}-server

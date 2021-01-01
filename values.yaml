@@ -7,3 +7,22 @@ backend:
         port: 8091
         initialDelay: 10
         periodSeconds: 5
+    service:
+        port: 8090
+        targetPort: 8090
+
+ui:
+    deployment:
+        image: denimallel/prod-cons-web:15
+        port: 80
+    service:
+        port: 8080
+        targetPort: 80
+
+ingress:
+    backend:
+        path: /api/?(.*)
+        servicePort: 8090
+    ui:
+        path: /?(.*)
+        servicePort: 8080

@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-service
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-ingress-service
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
@@ -10,11 +10,11 @@ spec:
   rules:
     - http:
         paths:
-          - path: /?(.*)
+          - path: {{ .Values.ingress.ui.path }}
             backend:
-              serviceName: prod-cons-ui-service
-              servicePort: 8080
-          - path: /api/?(.*)
+              serviceName: {{ .Release.Name }}-{{ .Chart.Name }}-ui-service
+              servicePort: {{ .Values.ingress.ui.servicePort }}
+          - path: {{ .Values.ingress.backend.path }}
             backend:
-              serviceName: prod-cons-backend-service
-              servicePort: 8090
+              serviceName: {{ .Release.Name }}-{{.Chart.Name}}-backend-service
+              servicePort: {{ .Values.ingress.backend.servicePort }}
