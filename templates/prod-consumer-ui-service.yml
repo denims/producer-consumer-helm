@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-ui-service
+  name: {{ include "producer-consumer-name" . }}-ui-service
 spec:
   type: ClusterIP
   selector:
-    app: {{ .Release.Name }}-{{ .Chart.Name }}-web
+    app: {{ include "producer-consumer-name" . }}-web
   ports:
   - port: {{ .Values.ui.service.port }}
     targetPort: {{ .Values.ui.service.targetPort }}

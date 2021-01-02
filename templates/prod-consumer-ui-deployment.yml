@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-web
+  name: {{ include "producer-consumer-name" . }}-web
 spec:
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-{{ .Chart.Name }}-web
+      app: {{ include "producer-consumer-name" . }}-web
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-{{ .Chart.Name }}-web
+        app: {{ include "producer-consumer-name" . }}-web
     spec:
       containers:
-      - name: {{ .Release.Name }}-{{ .Chart.Name }}-web
+      - name: {{ include "producer-consumer-name" . }}-web
         image: {{ .Values.ui.deployment.image }}
         ports:
         - containerPort: {{ .Values.ui.deployment.port }}

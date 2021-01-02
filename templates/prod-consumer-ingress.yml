@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-ingress-service
+  name: {{ include "producer-consumer-name" . }}-ingress-service
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
@@ -12,9 +12,9 @@ spec:
         paths:
           - path: {{ .Values.ingress.ui.path }}
             backend:
-              serviceName: {{ .Release.Name }}-{{ .Chart.Name }}-ui-service
+              serviceName: {{ include "producer-consumer-name" . }}-ui-service
               servicePort: {{ .Values.ingress.ui.servicePort }}
           - path: {{ .Values.ingress.backend.path }}
             backend:
-              serviceName: {{ .Release.Name }}-{{.Chart.Name}}-backend-service
+              serviceName: {{ include "producer-consumer-name" . }}-backend-service
               servicePort: {{ .Values.ingress.backend.servicePort }}
